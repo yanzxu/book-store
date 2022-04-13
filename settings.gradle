@@ -1,0 +1,6 @@
+rootProject.name = 'book-store'
+include 'user-service'
+include 'store-service'
+include 'order-service'
+include 'bff-service'
+
