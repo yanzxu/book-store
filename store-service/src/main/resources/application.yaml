@@ -1,0 +1,10 @@
+server:
+  port: 8093
+
+spring:
+  datasource:
+    url: jdbc:mysql://yzxu.asuscomm.com:3306/store
+    username: root
+    password: 906700211
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
