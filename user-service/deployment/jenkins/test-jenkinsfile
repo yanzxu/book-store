@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('checkout') {
+            steps {
+                echo '********* checkout start ********'
+                echo pwd()
+                git branch:'dev-test-service',credentialsId:'aaa16faa-d48c-49a3-ad3d-9497ce08fee0',url:'git@github.com:yanzxu/book-store.git'
+                echo '********* checkout end ********'
+            }
+        }
+        
+        stage('buildJar') {
+            steps {
+                echo '********* buildJar start ********'
+                sh './gradlew :user-service:bootJar'
+                echo '********* buildJar start ********'
+            }
+
+        }
+    }
+}

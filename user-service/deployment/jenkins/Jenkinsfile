@@ -1,0 +1,57 @@
+#!groovy
+
+pipeline {
+
+    agent any
+
+    environment {
+        registryCredential = "node02-docker"
+    }
+
+    stage('checkout') {
+        steps{
+            git credentialsId: 'c69c70fd-98b8-4efd-9a3a-03e107260', url: 'https://xx.xx.com/helloworld.git'
+        }
+    }
+
+    stages {
+        stage(‘Build’) {
+            steps{
+                script {
+                    sh 'mvn clean install'
+                }
+            }
+        }
+
+        stage(‘Load’) {
+            steps{
+                script {
+                    app = docker.build("cloud007/simple-spring")
+                }
+            }
+        }
+
+        stage(‘Deploy’) {
+            steps {
+                script {
+                    docker.withRegistry( "https://registry.hub.docker.com", registryCredential) {
+                        // dockerImage.push()
+                        app.push("latest")
+                    }
+                }
+            }
+        }
+
+        stage('Deploy to ACS') {
+            steps {
+                withCredentials([azureServicePrincipal('dbb6d63b-41ab-4e71-b9ed-32b3be06eeb8')]) {
+                    sh 'echo "logging in" '
+                    sh 'az login --service-principal -u ***************************'
+                    sh 'az account set -s ****************************'
+                    sh 'az aks get-credentials --resource-group ilink --name    mycluster'
+                    sh 'kubectl apply -f sample.yaml'
+                }
+            }
+        }
+    }
+}
