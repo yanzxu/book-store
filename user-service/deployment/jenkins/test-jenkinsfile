@@ -1,8 +1,18 @@
+#!groovy
+
 pipeline {
+    // agent {
+    //     node {
+    //         label 'node02'
+    //     }
+    // }
+
     agent any
 
     stages {
         stage('checkout') {
+            // 1. add git config in jenkins;
+            // 2. when build in new node, should add ssh key in github;
             steps {
                 echo '********* checkout start ********'
                 echo pwd()
@@ -14,8 +24,20 @@ pipeline {
         stage('buildJar') {
             steps {
                 echo '********* buildJar start ********'
-                sh './gradlew :user-service:bootJar'
+                sh './gradlew clean :user-service:bootJar'
                 echo '********* buildJar start ********'
+            }
+        }
+
+        stage('buildImage') {
+            // note the difference between '' and "";
+            steps {
+                dir('user-service') {
+                    echo '********* buildImage start ********'
+                    echo pwd()
+                    sh "docker build -t user-service:${env.BUILD_ID} ."
+                    echo '********* buildImage end ********'
+                }
             }
 
         }
