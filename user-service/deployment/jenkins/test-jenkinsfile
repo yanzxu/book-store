@@ -9,6 +9,12 @@ pipeline {
 
     agent any
 
+    environment {
+        IMAGE_TAG="${env.BUILD_ID}"
+        SERVICE_NAME="user-service"
+		DOCKERHUB_CREDENTIALS=credentials('40759b21-2fb6-4660-aead-57af75ea6e85')
+	}
+
     stages {
         stage('checkout') {
             // 1. add git config in jenkins;
@@ -21,7 +27,7 @@ pipeline {
             }
         }
         
-        stage('buildJar') {
+        stage('build jar') {
             steps {
                 echo '********* buildJar start ********'
                 sh './gradlew clean :user-service:bootJar'
@@ -29,17 +35,25 @@ pipeline {
             }
         }
 
-        stage('buildImage') {
-            // note the difference between '' and "";
+        stage('build image') {
             steps {
                 dir('user-service') {
                     echo '********* buildImage start ********'
                     echo pwd()
-                    sh "docker build -t user-service:${env.BUILD_ID} ."
+                    sh 'docker build -t yanzxu/$SERVICE_NAME:$IMAGE_TAG .'
                     echo '********* buildImage end ********'
                 }
             }
+        }
 
+        stage('push image') {
+            steps {
+                echo '********* pushImage start ********'
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                echo '********* login dockerhub successfully ********'
+                sh 'docker push yanzxu/$SERVICE_NAME:$IMAGE_TAG'
+                echo '********* push image successfully ********'
+            }
         }
     }
 }
