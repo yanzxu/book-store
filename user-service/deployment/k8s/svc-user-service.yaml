@@ -4,11 +4,11 @@ metadata:
   name: svc-user-service
   namespace: dev
 spec:
-  clusterIP: 192.168.50.52 #固定svc的内网ip
+  clusterIP: 10.96.0.5 
   ports:
-    - port: 9091
-      protocol: TCP
-      targetPort: 8091
+  - port: 8091
+    protocol: TCP
+    targetPort: 8091
   selector:
     app: deployment-user-service
   type: ClusterIP
