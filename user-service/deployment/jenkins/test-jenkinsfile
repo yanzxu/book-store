@@ -55,5 +55,16 @@ pipeline {
                 echo '********* push image successfully ********'
             }
         }
+
+        stages('deploy') {
+            steps {
+                dir('deployment/k8s') {
+                    echo '********* deploy start ********'
+                    sh './update-deploy-image.sh $IMAGE_TAG'
+                    echo '********* deploy end ********'
+
+                }
+            }
+        }
     }
 }
