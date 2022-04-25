@@ -7,5 +7,5 @@ if test -z "$(kubectl get deploy deployment-user-service -n dev)"; then
     rm -rf ./deployment-user-service.yaml
 else
     echo "******* deployment-user-service already exist, update image tag to: $IMAGE_TAG *******"
-    kubectl set image deployment/deployment-user-service user-service=yanzxu/user-service:$IMAGE_TAG -n dev
+    kubectl set image deployment/deployment-user-service user-service=yanzxu/user-service:"$IMAGE_TAG" -n dev
 fi
