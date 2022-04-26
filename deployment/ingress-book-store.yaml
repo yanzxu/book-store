@@ -11,5 +11,5 @@ spec:
         paths:
           - path: /users
             backend:
-              serviceName: user-service
+              serviceName: svc-user-service
               servicePort: 8091
