@@ -4,11 +4,11 @@ metadata:
   name: svc-user-service
   namespace: dev
 spec:
-  clusterIP: 10.96.0.5 
+  type: ClusterIP
+  clusterIP: None
   ports:
-  - port: 8091
+    - port: 8091
     protocol: TCP
     targetPort: 8091
   selector:
     app: deployment-user-service
-  type: ClusterIP
