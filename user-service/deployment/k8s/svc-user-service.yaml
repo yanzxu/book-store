@@ -7,7 +7,7 @@ spec:
   type: ClusterIP
   clusterIP: None
   ports:
-    - port: 8091
+  - port: 8091
     protocol: TCP
     targetPort: 8091
   selector:
