@@ -9,20 +9,37 @@ pipeline {
 
     agent any
 
+    parameters {
+        choice(
+                name: 'Env',
+                choices: ['dev'],
+                description: 'The environment to be deployed'
+        )
+        choice(
+                name: 'Branch',
+                choices: ['dev-test-service','dev','master'],
+                description: 'The branch to be deployed'
+        )
+
+    }
+
     environment {
         IMAGE_TAG="${env.BUILD_ID}"
         SERVICE_NAME="user-service"
-		DOCKERHUB_CREDENTIALS=credentials('40759b21-2fb6-4660-aead-57af75ea6e85')
-	}
+        DOCKERHUB_CREDENTIALS=credentials('40759b21-2fb6-4660-aead-57af75ea6e85')
+        BRANCH="${params.Branch}"
+        DEPLOY_ENV="${params.Env}"
+    }
 
     stages {
+
         stage('checkout') {
             // 1. add git config in jenkins;
             // 2. when build in new node, should add ssh key in github;
             steps {
-                echo '********* checkout start ********'
+                echo "********* checkout start Branch: $BRANCH, Env: $DEPLOY_ENV ********"
                 echo pwd()
-                git branch:'dev-test-service',credentialsId:'aaa16faa-d48c-49a3-ad3d-9497ce08fee0',url:'git@github.com:yanzxu/book-store.git'
+                git branch:"$BRANCH",credentialsId:'aaa16faa-d48c-49a3-ad3d-9497ce08fee0',url:'git@github.com:yanzxu/book-store.git'
                 echo '********* checkout end ********'
             }
         }
