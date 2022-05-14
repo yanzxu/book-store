@@ -5,7 +5,7 @@ metadata:
   namespace: dev
 spec:
   capacity:
-    storage: 100M
+    storage: 200M
   accessModes:
     - ReadWriteMany
   storageClassName: nfs
