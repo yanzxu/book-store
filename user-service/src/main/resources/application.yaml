@@ -8,3 +8,8 @@ spring:
     password: 906700211
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
+
+logging:
+  config: classpath:log/log4j2.xml
+  level:
+    root: info
