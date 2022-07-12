@@ -1,2 +1,8 @@
 server:
   port: 8090
+
+spring:
+  application:
+    name: bff-service
+  profiles:
+    active: local
