@@ -7,11 +7,11 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      app: deployment-user-service
+      app: pod-user-service
   template:
     metadata:
       labels:
-        app: deployment-user-service
+        app: pod-user-service
     spec:
       containers:
         - image: yanzxu/user-service:{IMAGE_TAG}
