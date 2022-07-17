@@ -11,4 +11,4 @@ spec:
     protocol: TCP
     targetPort: 8091
   selector:
-    app: deployment-user-service
+    app: pod-user-service
