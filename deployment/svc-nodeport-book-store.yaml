@@ -11,7 +11,7 @@ spec:
   ports:
     - name: http
       port: 80
-      nodePort: 30001
+      nodePort: 30001 # curl node01:30001/users
       targetPort: 80
       protocol: TCP
     - name: https
