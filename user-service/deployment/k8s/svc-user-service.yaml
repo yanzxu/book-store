@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: svc-user-service
+  name: svc-user-service # curl svc-user-service:8091/users  in pod is ok
   namespace: dev
 spec:
   type: ClusterIP
