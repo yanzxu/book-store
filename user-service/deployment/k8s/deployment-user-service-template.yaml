@@ -19,11 +19,10 @@ spec:
           ports:
             - containerPort: 8091
               protocol: TCP
-          volumeMounts:
-          - name: logs
-            mountPath: /var/log/user-service
-      volumes:
-        - name: logs
-          persistentVolumeClaim:
-            claimName: pvc-user-service
-
+#          volumeMounts:
+#          - name: logs
+#            mountPath: /var/log/user-service
+#      volumes:
+#        - name: logs
+#          persistentVolumeClaim:
+#            claimName: pvc-user-service
