@@ -1,7 +1,8 @@
-server:
-  port: 8091
-
 spring:
+  application:
+    name: user-service
+  profiles:
+    active: local
   datasource:
     url: jdbc:mysql://yzxu.asuscomm.com:3306/user
     username: root

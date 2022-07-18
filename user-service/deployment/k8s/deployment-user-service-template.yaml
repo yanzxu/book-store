@@ -19,7 +19,7 @@ spec:
         - image: yanzxu/user-service:{IMAGE_TAG}
           name: user-service
           ports:
-            - containerPort: 8091 # curl pod-ip:8091/users
+            - containerPort: 80 # curl pod-ip:80/users
               protocol: TCP
 #          volumeMounts:
 #          - name: logs
