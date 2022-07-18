@@ -1,0 +1,11 @@
+server:
+  port: 80
+
+user-service:
+  url: http://svc-user-service
+
+order-service:
+  url: http://svc-order-service
+
+store-service:
+  url: http://svc-store-service

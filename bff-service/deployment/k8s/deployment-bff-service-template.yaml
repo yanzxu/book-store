@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-bff-service
+  namespace: dev
+  labels:
+    app: deployment-bff-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: pod-bff-service
+  template:
+    metadata:
+      labels:
+        app: pod-bff-service
+    spec:
+      containers:
+        - image: yanzxu/bff-service:{IMAGE_TAG}
+          name: bff-service
+          ports:
+            - containerPort: 80
+              protocol: TCP
+#          volumeMounts:
+#          - name: logs
+#            mountPath: /var/log/user-service
+#      volumes:
+#        - name: logs
+#          persistentVolumeClaim:
+#            claimName: pvc-user-service
