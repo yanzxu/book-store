@@ -13,3 +13,7 @@ spec:
             backend:
               serviceName: svc-user-service
               servicePort: 80
+          - path: /bff
+            backend:
+              serviceName: svc-bff-service
+              servicePort: 80
